@@ -163,6 +163,9 @@ let eventTimeout = null;
 
 client.on('ready', () => {
 	console.log('Aquamari Bot initialized!');
+	const date = new Date(new Date().getTime());
+	const time = date.toLocaleTimeString([], {hour12: false});
+	console.log(time);
 	client.channels.fetch('625649420553289749')
 		.then(channel => {
 			sendTimedMessage(channel);
