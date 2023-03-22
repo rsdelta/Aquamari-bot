@@ -1,0 +1,24 @@
+{
+  "name": "Aquamari-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "node": "^16.9.0",
+  "scripts": {
+    "start": "node main.js",
+    "dev": "nodemon main.js",
+    "deploy": "node deploy-commands.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3",
+    "moment-timezone": "^0.5.41",
+    "mongoose": "^7.0.2",
+    "node-schedule": "^2.1.1",
+    "nodemon": "^2.0.20",
+    "wokcommands": "^2.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.30.0"
+  }
+}
