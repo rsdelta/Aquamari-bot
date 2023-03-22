@@ -31,10 +31,10 @@ const selfEvent = [
 ];
 
 client.on('messageCreate', (message) => {
-	if (message.content.includes("Сиськи чьи?")) {
+	if (message.content.toLowerCase().includes("сиськи чьи?")) {
 		message.reply('Сиськи Лир, но лучше проверить карту осады.')
 	}
-	else if (message.content.includes("Кто вор?")) {
+	else if (message.content.toLowerCase().includes("кто вор")) {
 		message.reply('Древняя китайская мудрость: \n1) Ба обвиняет Бу: Бу\n2) Бу обвиняет Бу: Ба\n3) Бо обвиняет Бу: Бо')
 	}
 	else if (message.content.includes("<@1088130726597234791>")) {//Bot highlighted
