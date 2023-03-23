@@ -167,7 +167,7 @@ function sendTimedMessage(channel) {
 	const time = date.toLocaleTimeString([], {hour12: false});
 	const day = date.getDay();
 	const minutes = date.getMinutes();
-	if (minutes === 5) {
+	if (minutes === 1) {
 		const firstMessage = "Шутка часа:\n";
 		console.log("Sending joke");
 		channel.send({ content: firstMessage + jokes[Math.floor(Math.random() * jokes.length)]})
