@@ -93,8 +93,21 @@ function sendTimedJoke(channel: any) {
 	}
 }
 
-function main() {
+const commands = [
+	new SlashCommandBuilder().setName('schedule').setDescription('Schedules a message').addStringOption((option) => option.setName('message').setDescription('The message to be scheduled').setRequired(true).setMinLength(1).setMaxLength(1000))
+		.addIntegerOption((option) => option.setName('time').setDescription('time').setChoices(
+			{name: '1 Minute', value: 60000},
+			{name: '10 Minutes', value: 600000},
+		).setRequired(true))
+		.addChannelOption(option => option.setName('channel').setDescription('channel').addChannelTypes(ChannelType.GuildText).setRequired(true))
+		.toJSON()
+];
+
+async function main() {
 	try {
+		await rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID), {
+			body: commands //TODO: return commands
+		});
 		client.login(process.env.TOKEN)
 	}
 	catch (err) {
