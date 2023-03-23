@@ -72,3 +72,96 @@ export const guild_events = [
         time: "16:50:00",
     }
 ];
+
+export const guild_events_mobile = [
+    {
+        text: "Пять минут до события 'Isle of Greed' ака избиение деда.",
+        important: false,
+        day: 1,
+        time: "12:25:00",
+    },
+    {
+        text: "Pool Party! Заходим!",
+        important: false,
+        day: 1,
+        time: "12:15:00",
+    },
+    {
+        text: "Пять минут до события 'Isle of Greed' ака избиение деда.",
+        important: false,
+        day: 2,
+        time: "12:25:00",
+    },
+    {
+        text: "Pool Party! Заходим!",
+        important: false,
+        day: 2,
+        time: "12:15:00",
+    },
+    {
+        text: "Пять минут до события 'Isle of Greed' ака избиение деда.",
+        important: false,
+        day: 3,
+        time: "12:25:00",
+    },
+    {
+        text: "Pool Party! Заходим!",
+        important: false,
+        day: 3,
+        time: "12:15:00",
+    },
+    {
+        text: "Пять минут до события 'Isle of Greed' ака избиение деда.",
+        important: false,
+        day: 4,
+        time: "12:25:00",
+    },
+    {
+        text: "Pool Party! Заходим!",
+        important: false,
+        day: 4,
+        time: "12:15:00",
+    },
+    {
+        text: "Через 5 минут будет мобильный турнир!",
+        important: false,
+        day: 4,
+        time: "13:25:00",
+    },
+    {
+        text: "Пять минут до события 'Isle of Greed' ака избиение деда.",
+        important: false,
+        day: 5,
+        time: "12:25:00",
+    },
+    {
+        text: "Pool Party! Заходим!",
+        important: false,
+        day: 5,
+        time: "12:15:00",
+    },
+    {
+        text: "Пять минут до события 'Isle of Greed' ака избиение деда.",
+        important: false,
+        day: 6,
+        time: "12:25:00",
+    },
+    {
+        text: "Pool Party! Заходим!",
+        important: false,
+        day: 6,
+        time: "12:15:00",
+    },
+    {
+        text: "Пять минут до события 'Isle of Greed' ака избиение деда.",
+        important: false,
+        day: 7,
+        time: "12:25:00",
+    },
+    {
+        text: "Pool Party! Заходим!",
+        important: false,
+        day: 7,
+        time: "12:15:00",
+    },
+];

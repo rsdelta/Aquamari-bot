@@ -1,23 +1,43 @@
-
 import { config } from 'dotenv';
 import { jokes } from './strings/jokes';
-import { guild_events} from './strings/schedule';
+import {guild_events, guild_events_mobile} from './strings/schedule';
 import { scheduleJob } from 'node-schedule';
 
-import { Client, GatewayIntentBits, Collection, Routes, REST, SlashCommandBuilder, ChannelType } from 'discord.js';
+import { Client, GatewayIntentBits, Collection, ChannelType } from 'discord.js';
 import { MessageService } from "./MessageService";
+import {channel} from "diagnostics_channel";
 
-let announcementTimeout = null;
-let jokeTimeout = null;
+let globalTimeout = null;
 
 const client = new Client({ intents: [ GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages ]});
 client["commands"] = new Collection();
-const rest = new REST({version: '10'}).setToken(process.env.TOKEN);
 const GUILD_TAG = "<@&678545537317732373>";
 
 config();
 initClientEvents();
 main();
+
+function startTimedEvent(channel) {
+	client.channels.fetch('625649420553289749') //Main channel
+		.then(channel => {
+			sendTimedAnnouncement(channel, guild_events);
+		});
+
+	client.channels.fetch('638469455390965760') //Bot channel
+		.then(channel => {
+			sendTimedJoke(channel);
+		});
+
+	client.channels.fetch('1085959065462644867') //RevelationMobile 1085959065462644867
+		.then(channel => {
+			sendTimedAnnouncement(channel, guild_events_mobile);
+		});
+
+	clearTimeout(globalTimeout);
+	globalTimeout = setTimeout(() => {
+		startTimedEvent(channel);
+	}, 1000);
+}
 
 function initClientEvents() {
 	client.on('messageCreate', (message) => {
@@ -29,6 +49,7 @@ function initClientEvents() {
 		const date = new Date(new Date().getTime());
 		const time = date.toLocaleTimeString([], {hour12: false});
 		console.log(time);
+		startTimedEvent(channel);
 		client.channels.fetch('625649420553289749') //Main channel
 			.then(channel => {
 				sendTimedAnnouncement(channel);
@@ -57,11 +78,11 @@ function initClientEvents() {
 	});
 }
 
-function sendTimedAnnouncement(channel: any) {
+function sendTimedAnnouncement(channel: any, list) {
 	const date = new Date(new Date().getTime());
 	const time = date.toLocaleTimeString([], {hour12: false});
 	const day = date.getDay();
-	guild_events.forEach((event) => {
+	list.forEach((event) => {
 		if (event.day === day && event.time === time) {
 			if (event.important) {
 				MessageService.getInstance().sendMessage(channel, GUILD_TAG + " " + event.text)
@@ -71,11 +92,6 @@ function sendTimedAnnouncement(channel: any) {
 			}
 		}
 	});
-
-	clearTimeout(announcementTimeout);
-	announcementTimeout = setTimeout(() => {
-		sendTimedAnnouncement(channel);
-	}, 1000);
 }
 
 function sendTimedJoke(channel: any) {
@@ -88,11 +104,6 @@ function sendTimedJoke(channel: any) {
 		console.log("Sending joke");
 		MessageService.getInstance().sendMessage(channel, firstMessage + jokes[Math.floor(Math.random() * jokes.length)]);
 	}
-
-	clearTimeout(jokeTimeout);
-	jokeTimeout = setTimeout(() => {
-		sendTimedJoke(channel);
-	}, 1000);
 }
 
 function main() {
