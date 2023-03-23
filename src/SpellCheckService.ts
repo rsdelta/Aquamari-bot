@@ -1,4 +1,5 @@
 import {MessageService} from "./MessageService";
+import fetch from "node-fetch";
 
 export class SpellCheckService {
     private static instance: SpellCheckService;
@@ -20,7 +21,7 @@ export class SpellCheckService {
             .then(function(response) {
                 return response.json();
             })
-            .then(function(jsonResponse) {
+            .then(function(jsonResponse: any) {
                 let send = false;
                 let errors = 0;
                 let botMessage = author + "\n";
