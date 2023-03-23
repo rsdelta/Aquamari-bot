@@ -45,6 +45,7 @@ function initClientEvents() {
 
 	client.on('ready', () => {
 		console.log('Aquamari Bot initialized!');
+		MessageService.getInstance().addClient(client);
 		const date = new Date(new Date().getTime());
 		const time = date.toLocaleTimeString([], {hour12: false});
 		console.log(time);

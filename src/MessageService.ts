@@ -2,6 +2,7 @@ import { selfEvent} from './strings/jokes';
 
 export class MessageService {
     private static instance: MessageService;
+    private client;
 
     static getInstance() {
         if (!MessageService.instance) {
@@ -14,7 +15,39 @@ export class MessageService {
         channel.send({ content: message})
     }
 
+    public addClient(client) {
+        this.client = client;
+    }
+
     public aggressiveReplies(message) {
+        if (message.content.toLowerCase().includes("кролик")) {
+            const rabbitDance = this.client?.emojis?.cache?.find(emoji => emoji.name === "rabbitdance") || null;
+            if (rabbitDance) {
+                message.channel.send(rabbitDance.toString());
+            }
+            else {
+                console.log("emoji not found")
+            }
+        }
+        if (message.content.toLowerCase().includes("по жопе")) {
+            const rabbitSlap = this.client?.emojis?.cache?.find(emoji => emoji.name === "rabbitbuttslap") || null;
+            if (rabbitSlap) {
+                message.channel.send(rabbitSlap.toString());
+            }
+            else {
+                console.log("emoji not found")
+            }
+        }
+        if (message.content.toLowerCase().includes("накажи")) {
+            const rabbitSlapRed = this.client?.emojis?.cache?.find(emoji => emoji.name === "rabbitredslap") || null;
+            if (rabbitSlapRed) {
+                message.channel.send(rabbitSlapRed.toString());
+            }
+            else {
+                console.log("emoji not found")
+            }
+        }
+
         if (message.content.toLowerCase().includes("сиськи?")) {
             message.reply('Сиськи Лир, но лучше проверить карту осады.');
         }
