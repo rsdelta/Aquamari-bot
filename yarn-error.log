@@ -34,8 +34,8 @@ npm manifest:
     "license": "MIT",
     "node": "^16.9.0",
     "scripts": {
-      "start": "node main.js",
-      "dev": "nodemon main.js",
+      "start": "node main.ts",
+      "dev": "nodemon main.ts",
       "deploy": "node deploy-commands.js"
     },
     "dependencies": {
