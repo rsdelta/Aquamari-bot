@@ -1,4 +1,5 @@
 import { selfEvent } from './strings/jokes';
+import {SpellCheckService} from "./SpellCheckService";
 
 export class MessageService {
     private static instance: MessageService;
@@ -13,6 +14,13 @@ export class MessageService {
 
     public sendMessage(channel, message) {
         channel.send({ content: message})
+    }
+
+    public sendGrammarMessage(message) {
+        this.client.channels.fetch('638469455390965760') //Bot channel
+            .then(channel => {
+                this.sendMessage(channel, message)
+            });
     }
 
     public sendEmbeddedMessage(channel, message) {
@@ -43,6 +51,11 @@ export class MessageService {
     getEmoji(emojiName) {
         return this.client?.emojis?.cache?.find(emoji => emoji.name === emojiName) || null
     }
+
+    spellCheck(message) {
+        SpellCheckService.getInstance().checkAndReplace(message);
+    }
+
 
     public aggressiveReplies(message) {
         let finalString = "";

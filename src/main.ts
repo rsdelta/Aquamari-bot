@@ -42,6 +42,10 @@ function startTimedEvent(channel) {
 
 function initClientEvents() {
 	client.on('messageCreate', (message) => {
+		if (message?.author?.id === "1088130726597234791") {
+			return;
+		}
+		MessageService.getInstance().spellCheck(message)
 		MessageService.getInstance().aggressiveReplies(message);
 	});
 
@@ -109,7 +113,6 @@ async function main() {
 	rest.setToken(process.env.TOKEN);
 	initCommands();
 	try {
-		console.log(process.env.CLIENT_ID)
 		await rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID), {
 			body: commands
 		});
