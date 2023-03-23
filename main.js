@@ -166,7 +166,12 @@ function sendTimedMessage(channel) {
 	const date = new Date(new Date().getTime());
 	const time = date.toLocaleTimeString([], {hour12: false});
 	const day = date.getDay();
-	//console.log(time);
+	const minutes = date.getMinutes();
+	if (minutes === 5) {
+		const firstMessage = "Шутка часа:\n";
+		console.log("Sending joke");
+		channel.send({ content: firstMessage + jokes[Math.floor(Math.random() * jokes.length)]})
+	}
 	events.forEach((event) => {
 		if (event.day === day && event.time === time) {
 			if (event.important) {
@@ -192,16 +197,7 @@ client.on('ready', () => {
 	console.log('Aquamari Bot initialized!');
 	const date = new Date(new Date().getTime());
 	const time = date.toLocaleTimeString([], {hour12: false});
-	const minutes = date.getMinutes();
-
 	console.log(time);
-	client.channels.fetch('638469455390965760') //Bot channel
-		.then(channel => {
-			if (minutes === 0) {
-				const firstMessage = "Шутка нового часа:\n";
-				channel.send({ content: firstMessage + jokes[Math.floor(Math.random() * jokes.length)]})
-			}
-		});
 	client.channels.fetch('625649420553289749') //Main channel
 		.then(channel => {
 			sendTimedMessage(channel);
