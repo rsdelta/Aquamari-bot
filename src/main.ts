@@ -50,15 +50,6 @@ function initClientEvents() {
 		const time = date.toLocaleTimeString([], {hour12: false});
 		console.log(time);
 		startTimedEvent(channel);
-		client.channels.fetch('625649420553289749') //Main channel
-			.then(channel => {
-				sendTimedAnnouncement(channel);
-			});
-
-		client.channels.fetch('638469455390965760') //Bot channel
-			.then(channel => {
-				sendTimedJoke(channel);
-			});
 	});
 
 	client.on('interactionCreate', (interaction) => {
