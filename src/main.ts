@@ -4,11 +4,15 @@ import {guild_events, guild_events_mobile, GuildEvent} from './strings/schedule'
 import { scheduleJob } from 'node-schedule';
 
 import { Client, GatewayIntentBits, Collection, Routes, REST, SlashCommandBuilder, ChannelType } from 'discord.js';
+
 import { MessageService } from "./MessageService";
 import {channel} from "diagnostics_channel";
-const rest = new REST({version: '10'}).setToken(process.env.TOKEN);
+
+const TIMEZONE_OFFSET = 3;
 
 let globalTimeout = null;
+let rest = null;
+let commands = null;
 
 const client = new Client({ intents: [ GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages ]});
 client["commands"] = new Collection();
@@ -22,17 +26,14 @@ function startTimedEvent(channel) {
 		.then(channel => {
 			sendTimedAnnouncement(channel, guild_events);
 		});
-
-	client.channels.fetch('638469455390965760') //Bot channel
-		.then(channel => {
-			sendTimedJoke(channel);
-		});
-
 	client.channels.fetch('1085959065462644867') //RevelationMobile 1085959065462644867
 		.then(channel => {
 			sendTimedAnnouncement(channel, guild_events_mobile);
 		});
-
+	client.channels.fetch('638469455390965760') //Bot channel
+		.then(channel => {
+			sendTimedJoke(channel);
+		});
 	clearTimeout(globalTimeout);
 	globalTimeout = setTimeout(() => {
 		startTimedEvent(channel);
@@ -47,8 +48,7 @@ function initClientEvents() {
 	client.on('ready', () => {
 		console.log('Aquamari Bot initialized!');
 		MessageService.getInstance().addClient(client);
-		const date = new Date(new Date().getTime());
-		const time = date.toLocaleTimeString([], {hour12: false});
+		const time = MessageService.getInstance().calcTime(TIMEZONE_OFFSET);
 		console.log(time);
 		startTimedEvent(channel);
 	});
@@ -64,7 +64,6 @@ function initClientEvents() {
 				scheduleJob(date, () => {
 					channel.send({ content: message})
 				});
-
 			}
 		}
 	});
@@ -72,7 +71,7 @@ function initClientEvents() {
 
 function sendTimedAnnouncement(channel: any, list: GuildEvent[]) {
 	const date = new Date(new Date().getTime());
-	const time = date.toLocaleTimeString([], {hour12: false});
+	const time = MessageService.getInstance().calcTime(TIMEZONE_OFFSET);
 	const day = date.getDay();
 	list.forEach((event) => {
 		if (event.day === day && event.time === time) {
@@ -93,20 +92,26 @@ function sendTimedJoke(channel: any) {
 	}
 }
 
-const commands = [
-	new SlashCommandBuilder().setName('schedule').setDescription('Schedules a message').addStringOption((option) => option.setName('message').setDescription('The message to be scheduled').setRequired(true).setMinLength(1).setMaxLength(1000))
-		.addIntegerOption((option) => option.setName('time').setDescription('time').setChoices(
-			{name: '1 Minute', value: 60000},
-			{name: '10 Minutes', value: 600000},
-		).setRequired(true))
-		.addChannelOption(option => option.setName('channel').setDescription('channel').addChannelTypes(ChannelType.GuildText).setRequired(true))
-		.toJSON()
-];
+function initCommands() {
+	commands = [
+		new SlashCommandBuilder().setName('schedule').setDescription('Schedules a message').addStringOption((option) => option.setName('message').setDescription('The message to be scheduled').setRequired(true).setMinLength(1).setMaxLength(1000))
+			.addIntegerOption((option) => option.setName('time').setDescription('time').setChoices(
+				{name: '1 Minute', value: 60000},
+				{name: '10 Minutes', value: 600000},
+			).setRequired(true))
+			.addChannelOption(option => option.setName('channel').setDescription('channel').addChannelTypes(ChannelType.GuildText).setRequired(true))
+			.toJSON()
+	];
+}
 
 async function main() {
+	rest = new REST({version: '10'});
+	rest.setToken(process.env.TOKEN);
+	initCommands();
 	try {
+		console.log(process.env.CLIENT_ID)
 		await rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID), {
-			body: commands //TODO: return commands
+			body: commands
 		});
 		client.login(process.env.TOKEN)
 	}

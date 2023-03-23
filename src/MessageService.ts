@@ -15,6 +15,27 @@ export class MessageService {
         channel.send({ content: message})
     }
 
+    public sendEmbeddedMessage(channel, message) {
+        //TODO:
+        const embedMessage = {
+            title: "",
+            author: {
+                name: ""
+            },
+            description: "",
+            fields: [
+                {
+                    name: "",
+                    value: ''
+                },
+                {
+                    name: "",
+                    value: ''
+                }]
+        };
+        channel.send({ embeds: [embedMessage]})
+    }
+
     public addClient(client) {
         this.client = client;
     }
@@ -68,6 +89,13 @@ export class MessageService {
             }
             message.reply(finalString + firstMessage + selfEvent[Math.floor(Math.random() * selfEvent.length)])
         }
+    }
+
+    public calcTime(offset) {
+        let d = new Date();
+        let utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+        let nd = new Date(utc + (3600000*offset));
+        return nd.toLocaleTimeString([], {hour12: false});
     }
 }
 
