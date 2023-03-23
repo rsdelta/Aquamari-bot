@@ -11,7 +11,6 @@ let globalTimeout = null;
 
 const client = new Client({ intents: [ GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages ]});
 client["commands"] = new Collection();
-const GUILD_TAG = "<@&678545537317732373>";
 
 config();
 initClientEvents();
@@ -76,7 +75,7 @@ function sendTimedAnnouncement(channel: any, list) {
 	list.forEach((event) => {
 		if (event.day === day && event.time === time) {
 			if (event.important) {
-				MessageService.getInstance().sendMessage(channel, GUILD_TAG + " " + event.text)
+				MessageService.getInstance().sendMessage(channel, event.highlight_id + " " + event.text)
 			}
 			else {
 				MessageService.getInstance().sendMessage(channel, event.text);
