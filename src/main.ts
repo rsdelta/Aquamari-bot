@@ -1,6 +1,6 @@
 import { config } from 'dotenv';
 import { jokes } from './strings/jokes';
-import {guild_events, guild_events_mobile} from './strings/schedule';
+import {guild_events, guild_events_mobile, GuildEvent} from './strings/schedule';
 import { scheduleJob } from 'node-schedule';
 
 import { Client, GatewayIntentBits, Collection, ChannelType } from 'discord.js';
@@ -69,18 +69,13 @@ function initClientEvents() {
 	});
 }
 
-function sendTimedAnnouncement(channel: any, list) {
+function sendTimedAnnouncement(channel: any, list: GuildEvent[]) {
 	const date = new Date(new Date().getTime());
 	const time = date.toLocaleTimeString([], {hour12: false});
 	const day = date.getDay();
 	list.forEach((event) => {
 		if (event.day === day && event.time === time) {
-			if (event.important) {
-				MessageService.getInstance().sendMessage(channel, event.highlight_id + " " + event.text)
-			}
-			else {
-				MessageService.getInstance().sendMessage(channel, event.text);
-			}
+			MessageService.getInstance().sendMessage(channel, (event.highlight_id || "") + " " + event.text)
 		}
 	});
 }

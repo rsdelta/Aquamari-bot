@@ -1,4 +1,4 @@
-import { selfEvent} from './strings/jokes';
+import { selfEvent } from './strings/jokes';
 
 export class MessageService {
     private static instance: MessageService;
