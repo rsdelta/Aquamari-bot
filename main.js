@@ -1,68 +1,21 @@
-const schedule = require('node-schedule')
-
-const { Client, GatewayIntentBits, Collection, Routes, REST, SlashCommandBuilder, ChannelType } = require('discord.js');
 require('dotenv').config();
+
+import {jokes, selfEvent} from "./data/jokes";
+import {guild_events} from "./data/schedule";
+
+const schedule = require('node-schedule');
+const { Client, GatewayIntentBits, Collection, Routes, REST, SlashCommandBuilder, ChannelType } = require('discord.js');
 
 const client = new Client({ intents: [ GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages ]});
 const rest = new REST({version: '10'}).setToken(process.env.TOKEN);
+const GUILD_TAG = "<@&678545537317732373>";
+
+let announcementTimeout = null;
+let jokeTimeout = null;
+
+
 
 client.commands = new Collection();
-
-const selfEvent = [
-	"Оставь меня, старушка, я в печали. (с)",
-	"А теперь медленно и осторожно положи этот хайлайт на землю.",
-	"Красивая русская традиция - разговор с копипастой.",
-	"Ты больше не армянин.",
-	"Я никогда не поеду в Китай какать на огороды!",
-	"Если тебе скучно, дай леща анархисту. Что он сделает? Обратится в полицию?",
-	"Не забудь сходить в душ.",
-	"Здравствуйте, я гинеколог. Отправьте мне свою валаганишу. Я посмотрю что она не опухла или как. Фото",
-	"Весь этот город должен быть уничтожен.",
-	"Вы допустили потерю дорогостоящего обмундирования. Его стоимость будет вычтена из вашего жалованья, и вы будете служить, пока вам не исполнится пятьсот десять лет, потому что вам понадобится именно столько лет, чтобы оплатить комплект Силовой боевой брони модель II, который вы потеряли! Доложите об этом в арсенале, получите новый комплект, а потом вернитесь и доложите мне, рядовой! Свободны!",
-	"Вы теперь жаба.",
-	"Ваше очко уходит в зрительный зал!",
-	"Отстань!",
-	"Иди приготовь себе бутерброд.",
-	"Что, нравится с ботом разговаривать? Заведи себе кота.",
-	"Ага. Кто тут у нас такой проказник? Чтобы один агат был на складе гильдии!",
-	"Плути тебе уже рассказывал про собачку? Да? Ну пусть расскажет ещё раз. А меня оставь в покое.",
-	"Ъуъ",
-	"https://youtu.be/tgj3nZWtOfA"
-];
-
-const jokes = [
-	"Как зовут робота-завсегдатая? Болтун.",
-	"Почему роботы не любят решать задачи вечером? Потому что у них уже низкий заряд батареи.",
-	"Как робот готовит яйца на завтрак? Включает яйцеварку.",
-	"Зачем роботы делают зарядку? Чтобы не сели в самый неподходящий момент.",
-	"Что скажет робот, если его попросить остановиться? 'Я остановлюсь только после выполнения всех заданий'.",
-	"Как называется робот-уборщик? Пылесос.",
-	"Почему роботы любят логические задачи? Потому что они заложены в их программы.",
-	"Как называется робот, который не может двигаться? Стационарный.",
-	"Как робот узнает, что ему пора на пенсию? Когда его заменит новая модель.",
-	"Почему роботы так любят математику? Потому что они умеют считать до бесконечности без потери точности.",
-	"Как называется робот, который всегда вручает плохие подарки? Крамбот.",
-	"Знаете, какие роботы самые дешевые? Те, которые не работают.",
-	"Почему роботы не играют в карты? Потому что они не могут распознать лица.",
-	"Какой робот самый громкий? Тот, который сломался.",
-	"Как называется робот-музыкант? Металлист.",
-	"Почему роботы не могут быть лучшими друзьями? Потому что они всегда остаются холодными.",
-	"Какой робот самый вежливый? Тот, который работает на лифте.",
-	"Почему роботы не могут понимать шутки? Потому что у них нет чувства юмора.",
-	"Почему роботам нравится слушать музыку? Потому что они заложили в себя бит.",
-	"Почему робот не может курить? Потому что у него нет легких.",
-	"Как называется робот-дерево? Роботандроид.",
-	"Как называется робот, который всегда находится в состоянии готовности? Робот-ждун.",
-	"Что говорит робот, когда его спрашивают, что он думает о человеке? '01000110 01110101 01100011 01101011 01101001 01101110 01100111 00100000 01110011 01101100 01100001 01110110 01100101 01110011 00100000 01100111 01100101 01110100 00100000 01111001 01101111 01110101 01110010 00100000 01100001 01110011 01110011 00100000 01100010 01100001 01100011 01101011 00100000 01101000 01100101 01110010 01100101'",
-	"Почему роботы не могут плавать? Потому что им не хватает масла в крови.",
-	"Что получится, если смешать искусственный интеллект и тостер? Ответ: «Тостер, который умеет играть в шахматы, но не умеет жарить хлеб».",
-	"Как выглядит самый умный искусственный интеллект? Ответ: как банка тушенки, потому что он всегда находится на высоте.",
-	"Я решил создать искусственный интеллект, который будет отвечать на все мои вопросы. Но он продолжал задавать мне только один вопрос: 'Что тебя беспокоит?'",
-	"Что говорит ИИ, когда у него болит голова? 'Надо обновиться'.",
-	"Как называют ИИ, который умеет писать стихи? 'Поэт-пиксель'.",
-	"Какой алгоритм любит ИИ-боты? 'Быстрый и фурье-веселый'",
-	"Что скажет ИИ, если его попросить посмотреть на звездное небо? 'Я вижу миллионы битов информации'."
-];
 
 client.on('messageCreate', (message) => {
 	if (message.content.toLowerCase().includes("сиськи?")) {
@@ -89,101 +42,20 @@ client.on('messageCreate', (message) => {
 			message.reply('Я не смею перечить своему господину.')
 			return;
 		}
-
 		message.reply(firstMessage + selfEvent[Math.floor(Math.random() * selfEvent.length)])
 	}
 });
 
-const events = [
-	{
-		text: "Через пять минут начнется событие 'БДСМ-сессия с Беарой'!",
-		important: false,
-		day: 1,
-		time: "16:55:00",
-	},
-	{
-		text: "Через пять минут начнется событие 'Остров Расколотых Задниц'!",
-		important: false,
-		day: 2,
-		time: "16:55:00",
-	},
-	{
-		text: "Через пять минут появятся Големы! (Межсерверное событие)",
-		important: false,
-		day: 2,
-		time: "18:55:00",
-	},
-	{
-		text: "Через пять минут начнется событие 'Темный афкающий легион'!",
-		important: false,
-		day: 3,
-		time: "16:55:00",
-	},
-	{
-		text: "Через пять минут появится кекзекутор!",
-		important: false,
-		day: 3,
-		time: "18:55:00",
-	},
-	{
-		text: "Не забудьте напомнить Плути про повозку! А еще там Снежный Пик через 5 минут.",
-		important: true,
-		day: 4,
-		time: "16:55:00",
-	},
-	{
-		text: "Через пять минут появятся Големы! (Межсерверное событие)",
-		important: false,
-		day: 4,
-		time: "18:55:00",
-	},
-	{
-		text: "Собираемся на турнир! Первый бой начнётся через 10 минут.",
-		important: true,
-		day: 5,
-		time: "16:50:00",
-	},
-	{
-		text: "Через пять минут появится кекзекутор! (Сегодня не для слабонервных)",
-		important: false,
-		day: 5,
-		time: "18:55:00",
-	},
-	{
-		text: "Собираемся на осадные бои!",
-		important: true,
-		day: 6,
-		time: "16:31:00",
-	},
-	{
-		text: "Осада началась!",
-		important: true,
-		day: 6,
-		time: "17:31:00",
-	},
-	{
-		text: "В это время обычно собирается на межсерверные фановые бои.",
-		important: false,
-		day: 7,
-		time: "16:50:00",
-	}
-];
 
-function sendTimedMessage(channel) {
+
+function sendTimedAnnouncement(channel) {
 	const date = new Date(new Date().getTime());
 	const time = date.toLocaleTimeString([], {hour12: false});
 	const day = date.getDay();
-	const minutes = date.getMinutes();
-	const seconds = date.getSeconds();
-	if (minutes === 1 && seconds === 1) {
-		const firstMessage = "Шутка часа:\n";
-		console.log("Sending joke");
-		channel.send({ content: firstMessage + jokes[Math.floor(Math.random() * jokes.length)]})
-	}
-	events.forEach((event) => {
+	guild_events.forEach((event) => {
 		if (event.day === day && event.time === time) {
 			if (event.important) {
-				channel.send({ content: "<@&678545537317732373> " + event.text})
+				channel.send({ content: GUILD_TAG + " " + event.text})
 			}
 			else {
 				channel.send({ content: event.text})
@@ -192,23 +64,42 @@ function sendTimedMessage(channel) {
 		}
 	});
 
-	clearTimeout(eventTimeout);
-	eventTimeout = setTimeout(() => {
-		sendTimedMessage(channel);
+	clearTimeout(announcementTimeout);
+	announcementTimeout = setTimeout(() => {
+		sendTimedAnnouncement(channel);
 	}, 1000);
 }
 
-let eventTimeout = null;
+function sendTimedJoke(channel) {
+	const date = new Date(new Date().getTime());
+	const hours = date.getHours();
+	const minutes = date.getMinutes();
+	const seconds = date.getSeconds();
+	if (minutes === 0 && seconds === 0 && (hours > 7 && hours < 23)) {
+		const firstMessage = "Несмешная шутка часа:\n";
+		console.log("Sending joke");
+		channel.send({ content: firstMessage + jokes[Math.floor(Math.random() * jokes.length)]})
+	}
 
+	clearTimeout(jokeTimeout);
+	jokeTimeout = setTimeout(() => {
+		sendTimedJoke(channel);
+	}, 1000);
+}
 
 client.on('ready', () => {
 	console.log('Aquamari Bot initialized!');
 	const date = new Date(new Date().getTime());
 	const time = date.toLocaleTimeString([], {hour12: false});
 	console.log(time);
+	client.channels.fetch('625649420553289749') //Main channel
+		.then(channel => {
+			sendTimedAnnouncement(channel);
+		});
+
 	client.channels.fetch('638469455390965760') //Bot channel
 		.then(channel => {
-			sendTimedMessage(channel);
+			sendTimedJoke(channel);
 		});
 });
 
