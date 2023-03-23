@@ -3,9 +3,10 @@ import { jokes } from './strings/jokes';
 import {guild_events, guild_events_mobile, GuildEvent} from './strings/schedule';
 import { scheduleJob } from 'node-schedule';
 
-import { Client, GatewayIntentBits, Collection, ChannelType } from 'discord.js';
+import { Client, GatewayIntentBits, Collection, Routes, REST, SlashCommandBuilder, ChannelType } from 'discord.js';
 import { MessageService } from "./MessageService";
 import {channel} from "diagnostics_channel";
+const rest = new REST({version: '10'}).setToken(process.env.TOKEN);
 
 let globalTimeout = null;
 
