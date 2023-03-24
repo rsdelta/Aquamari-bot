@@ -80,7 +80,7 @@ export const guild_events_mobile : GuildEvent[] = [
         highlight_id: "<@&1088445869021478992>"
     },
     {
-        text: "Pool Party! Заходим!",
+        text: "Pool Party! Заходим! ┌[☉‿☉]┘",
         day: 1,
         time: "15:45:00",
     },
@@ -102,7 +102,7 @@ export const guild_events_mobile : GuildEvent[] = [
         highlight_id: "<@&1088445869021478992>"
     },
     {
-        text: "Pool Party! Заходим!",
+        text: "Pool Party! Заходим! ┌[☉‿☉]┘",
         day: 2,
         time: "15:45:00",
     },
@@ -124,7 +124,7 @@ export const guild_events_mobile : GuildEvent[] = [
         highlight_id: "<@&1088445869021478992>"
     },
     {
-        text: "Pool Party! Заходим!",
+        text: "Pool Party! Заходим! ┌[☉‿☉]┘",
         day: 3,
         time: "15:45:00",
     },
@@ -141,7 +141,7 @@ export const guild_events_mobile : GuildEvent[] = [
         highlight_id: "<@&1088445869021478992>"
     },
     {
-        text: "Pool Party! Заходим!",
+        text: "Pool Party! Заходим! ┌[☉‿☉]┘",
         day: 4,
         time: "15:45:00",
     },
@@ -158,7 +158,7 @@ export const guild_events_mobile : GuildEvent[] = [
         highlight_id: "<@&1088445869021478992>"
     },
     {
-        text: "Pool Party! Заходим!",
+        text: "Pool Party! Заходим! ┌[☉‿☉]┘",
         day: 5,
         time: "15:45:00",
     },
@@ -169,13 +169,19 @@ export const guild_events_mobile : GuildEvent[] = [
         highlight_id: "<@&1088445869021478992>"
     },
     {
+        text: "Через 5 минут будем выбирать лучшую девочку Аквамари!",
+        day: 5,
+        time: "18:55:00",
+        highlight_id: "<@&1088445869021478992>"
+    },
+    {
         text: "Пять минут до события 'Isle of Greed' ака избиение деда.",
         day: 6,
         time: "15:25:00",
         highlight_id: "<@&1088445869021478992>"
     },
     {
-        text: "Pool Party! Заходим!",
+        text: "Pool Party! Заходим! ┌[☉‿☉]┘",
         day: 6,
         time: "15:45:00",
     },
@@ -186,7 +192,7 @@ export const guild_events_mobile : GuildEvent[] = [
         highlight_id: "<@&1088445869021478992>"
     },
     {
-        text: "Pool Party! Заходим!",
+        text: "Pool Party! Заходим! ┌[☉‿☉]┘",
         day: 7,
         time: "15:45:00",
     },

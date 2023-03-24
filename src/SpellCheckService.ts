@@ -1,6 +1,8 @@
 import {MessageService} from "./MessageService";
 import fetch from "node-fetch";
 
+export const SpellCheckExceptions = ["мож", "левайд", "душнайд", "мона", "бб", "шо да", "сюды"];
+
 export class SpellCheckService {
     private static instance: SpellCheckService;
 
@@ -51,12 +53,11 @@ export class SpellCheckService {
             }.bind(this));
     }
 
-    private isCapitalLetter(letter) {
+    private isCapitalLetter(letter: string) {
         return letter.toUpperCase() === letter;
     }
 
     checkExceptions(text: string) {
-        const exceptions = ["мож", "левайд", "душнайд", "мона"];
-        return exceptions.indexOf(text.toLowerCase()) > -1;
+        return SpellCheckExceptions.indexOf(text.toLowerCase()) > -1;
     }
 }
