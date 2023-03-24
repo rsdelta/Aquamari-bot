@@ -1,7 +1,11 @@
 import {MessageService} from "./MessageService";
 import fetch from "node-fetch";
 
-export const SpellCheckExceptions = ["мож", "левайд", "душнайд", "мона", "бб", "шо да", "сюды"];
+export const SpellCheckExceptions = ["мож", "левайд", "душнайд", "мона", "бб", "шо да", "сюды",
+"яндекс", "эхх", "крит", "дд", "баг", "каст", "баф", "дебаф", "эксп", "донат", "деф", "турик", "фраг", "нуп", "сяп", "буст",
+"стрим", "ютуб", "гугл", "комп", "спид", "бубс", "гет", "эсс", "хир", "сплэш", "сплеш", "дамаг", "син", "ган", "фак", "слэйв", "слейв", "кринж", "ресн", "кек", "лол", "машик",
+"люл", "бебе", "бэбэ", "пабл", "грак", "бря", "ыы", "гы", "кукол", "шмэк", "кринг", "биб", "баб", "боб", "бинд", "рофл", "лмао", "спел", "ковид", "аквамар", "вах", "санг",
+"лаг", "збт"];
 
 export class SpellCheckService {
     private static instance: SpellCheckService;
@@ -28,10 +32,13 @@ export class SpellCheckService {
                 let errors = 0;
                 let botMessage = author + "\n";
                 jsonResponse.forEach((spellData, index) => {
-                    if (this.checkExceptions(spellData.word)) {
+                    if (spellData.word.toLowerCase() == spellData.s[0].toLowerCase()) {
                         //Skipping
                     }
-                    else if (this.isCapitalLetter(spellData.word[0]) && index > 0) {
+                    else if (this.checkExceptions(spellData.word)) {
+                        //Skipping
+                    }
+                    else if (this.isCapitalLetter(spellData.word[0])) {
                         //Skipping
                     }
                     else if (spellData.word && spellData.s[0] && errors <= 5) {
@@ -58,6 +65,6 @@ export class SpellCheckService {
     }
 
     checkExceptions(text: string) {
-        return SpellCheckExceptions.indexOf(text.toLowerCase()) > -1;
+        return SpellCheckExceptions.some(exception => text.includes(exception))
     }
 }
