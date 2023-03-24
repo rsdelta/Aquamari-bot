@@ -31,17 +31,17 @@ export class SpellCheckService {
                 let send = false;
                 let errors = 0;
                 let botMessage = author + "\n";
-                jsonResponse.forEach((spellData, index) => {
-                    if (spellData.word.toLowerCase() == spellData.s[0].toLowerCase()) {
+                jsonResponse.forEach((spellData) => {
+                    if (spellData?.s[0] && spellData?.word?.toLowerCase() === spellData?.s[0]?.toLowerCase()) {
                         //Skipping
                     }
-                    else if (this.checkExceptions(spellData.word)) {
+                    else if (this.checkExceptions(spellData?.word)) {
                         //Skipping
                     }
-                    else if (this.isCapitalLetter(spellData.word[0])) {
+                    else if (this.isCapitalLetter(spellData?.word[0])) {
                         //Skipping
                     }
-                    else if (spellData.word && spellData.s[0] && errors <= 5) {
+                    else if (spellData.word && spellData.s?.[0] && errors <= 5) {
                         errors++;
                         console.log(this.isCapitalLetter(spellData.word[0]));
                         if (errors <= 5) {
@@ -65,6 +65,9 @@ export class SpellCheckService {
     }
 
     checkExceptions(text: string) {
+        if (!text) {
+            return false;
+        }
         return SpellCheckExceptions.some(exception => text.includes(exception))
     }
 }
