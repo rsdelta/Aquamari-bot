@@ -13,7 +13,7 @@ export class SpellCheckService {
 
     public checkAndReplace(message) {
         let author = "<@" + message?.author?.id + ">";
-        let url = "http://speller.yandex.net/services/spellservice.json/checkText?options=7&text=" + message.content;
+        let url = "http://speller.yandex.net/services/spellservice.json/checkText?options=7&lang=ru&text=" + message.content;
         if (message.content.length > 750) {
             return;
         }
@@ -25,11 +25,16 @@ export class SpellCheckService {
                 let send = false;
                 let errors = 0;
                 let botMessage = author + "\n";
-
-                console.log(jsonResponse.length);
-                jsonResponse.forEach((spellData) => {
-                    if (spellData.word && spellData.s[0] && errors <= 5) {
+                jsonResponse.forEach((spellData, index) => {
+                    if (this.checkExceptions(spellData.word)) {
+                        //Skipping
+                    }
+                    else if (this.isCapitalLetter(spellData.word[0]) && index > 0) {
+                        //Skipping
+                    }
+                    else if (spellData.word && spellData.s[0] && errors <= 5) {
                         errors++;
+                        console.log(this.isCapitalLetter(spellData.word[0]));
                         if (errors <= 5) {
                             botMessage = botMessage + "Вместо '" + spellData.word + "' следует писать '" + spellData.s[0] + "'.\n";
                         }
@@ -43,6 +48,15 @@ export class SpellCheckService {
                 if (send) {
                     MessageService.getInstance().sendGrammarMessage(botMessage);
                 }
-            });
+            }.bind(this));
+    }
+
+    private isCapitalLetter(letter) {
+        return letter.toUpperCase() === letter;
+    }
+
+    checkExceptions(text: string) {
+        const exceptions = ["мож", "левайд", "душнайд", "мона"];
+        return exceptions.indexOf(text.toLowerCase()) > -1;
     }
 }
