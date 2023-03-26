@@ -68,8 +68,14 @@ function initClientEvents() {
 					});
 					break;
 				case 'roll':
+					const user = interaction?.user?.id;
+					if (!user) {
+						console.log("User not found: " + user);
+						return;
+					}
+					const userString = "<@" + user + ">";
 					const randomNumber = Math.floor(Math.random() * 100) + 1;
-					interaction.reply({ content: 'Вы бросили кубик. Результат: ' + randomNumber + "."});
+					interaction.reply({ content: `${userString} бросает кубик: [${randomNumber}] оч.`});
 					break;
 			}
 
