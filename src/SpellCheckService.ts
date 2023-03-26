@@ -43,7 +43,6 @@ export class SpellCheckService {
                     }
                     else if (spellData.word && spellData.s?.[0] && errors <= 5) {
                         errors++;
-                        console.log(this.isCapitalLetter(spellData.word[0]));
                         if (errors <= 5) {
                             botMessage = botMessage + "Вместо '" + spellData.word + "' следует писать '" + spellData.s[0] + "'.\n";
                         }

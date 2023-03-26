@@ -2,11 +2,8 @@ import { config } from 'dotenv';
 import { jokes } from './strings/jokes';
 import {guild_events, guild_events_mobile, GuildEvent} from './strings/schedule';
 import { scheduleJob } from 'node-schedule';
-
 import { Client, GatewayIntentBits, Collection, Routes, REST, SlashCommandBuilder, ChannelType } from 'discord.js';
-
 import { MessageService } from "./MessageService";
-import {channel} from "diagnostics_channel";
 
 const TIMEZONE_OFFSET = 2;
 
@@ -21,7 +18,7 @@ config();
 initClientEvents();
 main();
 
-function startTimedEvent(channel) {
+function startTimedEvent() {
 	client.channels.fetch('625649420553289749') //Main channel
 		.then(channel => {
 			sendTimedAnnouncement(channel, guild_events);
@@ -36,7 +33,7 @@ function startTimedEvent(channel) {
 		});
 	clearTimeout(globalTimeout);
 	globalTimeout = setTimeout(() => {
-		startTimedEvent(channel);
+		startTimedEvent();
 	}, 1000);
 }
 
@@ -54,21 +51,28 @@ function initClientEvents() {
 		MessageService.getInstance().addClient(client);
 		const time = MessageService.getInstance().calcTime(TIMEZONE_OFFSET);
 		console.log(time);
-		startTimedEvent(channel);
+		startTimedEvent();
 	});
 
 	client.on('interactionCreate', (interaction) => {
 		if (interaction.isChatInputCommand()) {
-			if (interaction.commandName === 'schedule') {
-				const message = interaction.options.getString('message');
-				const time = interaction.options.getInteger('time');
-				const channel : any = interaction.options.getChannel('channel');
-				const date = new Date(new Date().getTime() + time);
-				interaction.reply({ content: 'Принято.'});
-				scheduleJob(date, () => {
-					channel.send({ content: message})
-				});
+			switch (interaction.commandName) {
+				case 'schedule':
+					const message = interaction.options.getString('message');
+					const time = interaction.options.getInteger('time');
+					const channel : any = interaction.options.getChannel('channel');
+					const date = new Date(new Date().getTime() + time);
+					interaction.reply({ content: 'Принято.'});
+					scheduleJob(date, () => {
+						channel.send({ content: message})
+					});
+					break;
+				case 'roll':
+					const randomNumber = Math.floor(Math.random() * 100) + 1;
+					interaction.reply({ content: 'Вы бросили кубик. Результат: ' + randomNumber + "."});
+					break;
 			}
+
 		}
 	});
 }
@@ -91,20 +95,28 @@ function sendTimedJoke(channel: any) {
 	const seconds = date.getSeconds();
 	if (minutes === 0 && seconds === 0 && (hours > 7 && hours < 23)) {
 		const firstMessage = "Несмешная шутка часа:\n";
-		console.log("Sending joke");
 		MessageService.getInstance().sendMessage(channel, firstMessage + jokes[Math.floor(Math.random() * jokes.length)]);
 	}
 }
 
+function scheduleMessageCommand() {
+	return new SlashCommandBuilder().setName('schedule').setDescription('Schedules a message').addStringOption((option) => option.setName('message').setDescription('The message to be scheduled').setRequired(true).setMinLength(1).setMaxLength(1000))
+		.addIntegerOption((option) => option.setName('time').setDescription('time').setChoices(
+			{name: '1 Minute', value: 60000},
+			{name: '10 Minutes', value: 600000},
+		).setRequired(true))
+		.addChannelOption(option => option.setName('channel').setDescription('channel').addChannelTypes(ChannelType.GuildText).setRequired(true))
+		.toJSON();
+}
+
+function rollCommand() {
+	return new SlashCommandBuilder().setName('roll').setDescription('Roll dice').toJSON();
+}
+
 function initCommands() {
 	commands = [
-		new SlashCommandBuilder().setName('schedule').setDescription('Schedules a message').addStringOption((option) => option.setName('message').setDescription('The message to be scheduled').setRequired(true).setMinLength(1).setMaxLength(1000))
-			.addIntegerOption((option) => option.setName('time').setDescription('time').setChoices(
-				{name: '1 Minute', value: 60000},
-				{name: '10 Minutes', value: 600000},
-			).setRequired(true))
-			.addChannelOption(option => option.setName('channel').setDescription('channel').addChannelTypes(ChannelType.GuildText).setRequired(true))
-			.toJSON()
+		scheduleMessageCommand(),
+		rollCommand()
 	];
 }
 
