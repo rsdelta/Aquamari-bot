@@ -8,7 +8,7 @@ import { Client, GatewayIntentBits, Collection, Routes, REST, SlashCommandBuilde
 import { MessageService } from "./MessageService";
 import {channel} from "diagnostics_channel";
 
-const TIMEZONE_OFFSET = 3;
+const TIMEZONE_OFFSET = 2;
 
 let globalTimeout = null;
 let rest = null;

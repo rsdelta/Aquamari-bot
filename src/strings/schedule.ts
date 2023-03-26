@@ -186,6 +186,11 @@ export const guild_events_mobile : GuildEvent[] = [
         time: "15:45:00",
     },
     {
+        text: "Через 5 минут начнётся мобильная осада!",
+        day: 6,
+        time: "15:55:00",
+    },
+    {
         text: "Пять минут до события 'Isle of Greed' ака избиение деда.",
         day: 7,
         time: "15:25:00",
