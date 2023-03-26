@@ -5,7 +5,7 @@ import { scheduleJob } from 'node-schedule';
 import { Client, GatewayIntentBits, Collection, Routes, REST, SlashCommandBuilder, ChannelType } from 'discord.js';
 import { MessageService } from "./MessageService";
 
-const TIMEZONE_OFFSET = 2;
+const TIMEZONE_OFFSET = 3;
 
 let globalTimeout = null;
 let rest = null;
