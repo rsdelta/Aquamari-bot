@@ -67,7 +67,7 @@ export const guild_events : GuildEvent[] = [
     },
     {
         text: "В это время обычно собирается на межсерверные фановые бои.",
-        day: 7,
+        day: 0,
         time: "19:50:00",
     }
 ];
@@ -192,13 +192,13 @@ export const guild_events_mobile : GuildEvent[] = [
     },
     {
         text: "Пять минут до события 'Isle of Greed' ака избиение деда.",
-        day: 7,
+        day: 0,
         time: "15:25:00",
         highlight_id: "<@&1088445869021478992>"
     },
     {
         text: "Pool Party! Заходим! ┌[☉‿☉]┘",
-        day: 7,
+        day: 0,
         time: "15:45:00",
     },
 ];

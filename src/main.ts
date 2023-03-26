@@ -50,7 +50,7 @@ function initClientEvents() {
 		console.log('Aquamari Bot initialized!');
 		MessageService.getInstance().addClient(client);
 		const time = MessageService.getInstance().calcTime(TIMEZONE_OFFSET);
-		console.log(time);
+		console.log("Start time: " + time);
 		startTimedEvent();
 	});
 
