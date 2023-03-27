@@ -42,7 +42,7 @@ function initClientEvents() {
 		if (message?.author?.id === "1088130726597234791") {
 			return;
 		}
-		MessageService.getInstance().spellCheck(message)
+		//MessageService.getInstance().spellCheck(message) //TODO: fix spellchecker. It's too strict
 		MessageService.getInstance().aggressiveReplies(message);
 	});
 
