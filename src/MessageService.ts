@@ -57,6 +57,7 @@ export class MessageService {
     }
 
     public passiveReplies(message) {
+        const zhabs = ["what", "awkwarddrink", "cwak", "charmed", "sus", "FrogguThink"];
         let finalString = "";
         if (message.content.toLowerCase().includes("кто вор")) {
             finalString = finalString + 'Древняя китайская мудрость: \n1) Ба обвиняет Бу: Бу\n2) Бу обвиняет Бу: Ба\n3) Бо обвиняет Бу: Бо\n';
@@ -79,7 +80,13 @@ export class MessageService {
                 finalString = finalString + emoji.toString() + "\n";
             }
         }
-        if (message.content.toLowerCase().includes("сиськи?")) {
+        if (message.content.toLowerCase().includes("жаб")) {
+            const emoji = this.getEmoji(zhabs[Math.floor(Math.random() * zhabs.length)]);
+            if (emoji) {
+                finalString = finalString + emoji.toString() + "\n";
+            }
+        }
+        if (message.content.toLowerCase().includes("сиськи")) {
             finalString = finalString + "Сиськи Лир, но лучше проверить карту осады.\n"
         }
         if (finalString.length > 0) {
