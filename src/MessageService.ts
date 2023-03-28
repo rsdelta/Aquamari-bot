@@ -80,7 +80,7 @@ export class MessageService {
                 finalString = finalString + emoji.toString() + "\n";
             }
         }
-        if (message.content.toLowerCase().includes("жаб")) {
+        if (message.content.toLowerCase().includes("жаб") || message.content.toLowerCase().includes("лягуш") || message.content.toLowerCase().includes("ква")) {
             const emoji = this.getEmoji(zhabs[Math.floor(Math.random() * zhabs.length)]);
             if (emoji) {
                 finalString = finalString + emoji.toString() + "\n";
