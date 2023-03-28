@@ -56,9 +56,11 @@ export class MessageService {
         SpellCheckService.getInstance().checkAndReplace(message);
     }
 
-
-    public aggressiveReplies(message) {
+    public passiveReplies(message) {
         let finalString = "";
+        if (message.content.toLowerCase().includes("кто вор")) {
+            finalString = finalString + 'Древняя китайская мудрость: \n1) Ба обвиняет Бу: Бу\n2) Бу обвиняет Бу: Ба\n3) Бо обвиняет Бу: Бо\n';
+        }
         if (message.content.toLowerCase().includes("кролик")) {
             const emoji = this.getEmoji("rabbitdance");
             if (emoji) {
@@ -80,9 +82,19 @@ export class MessageService {
         if (message.content.toLowerCase().includes("сиськи?")) {
             finalString = finalString + "Сиськи Лир, но лучше проверить карту осады.\n"
         }
-        if (message.content.toLowerCase().includes("кто вор")) {
-            finalString = finalString + 'Древняя китайская мудрость: \n1) Ба обвиняет Бу: Бу\n2) Бу обвиняет Бу: Ба\n3) Бо обвиняет Бу: Бо\n';
+        if (finalString.length > 0) {
+            message.reply(finalString);
+            return true;
         }
+        else {
+            return false;
+        }
+
+    }
+
+
+    public aggressiveReplies(message) {
+        let finalString = "";
         if (message.content.includes("<@1088130726597234791>")) {//Bot highlighted
             let firstMessage = "";
             if(message.author.id === "266214524225323008") { //Killer

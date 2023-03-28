@@ -43,6 +43,9 @@ function initClientEvents() {
 			return;
 		}
 		//MessageService.getInstance().spellCheck(message) //TODO: fix spellchecker. It's too strict
+		if (MessageService.getInstance().passiveReplies(message)) {
+			return;
+		}
 		MessageService.getInstance().aggressiveReplies(message);
 	});
 
