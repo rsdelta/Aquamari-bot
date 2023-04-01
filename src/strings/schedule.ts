@@ -1,3 +1,17 @@
+export enum GroupID {
+    AQUAMARI = "678545537317732373",
+    REVELATION_MOBILE = "1088445869021478992"
+}
+
+export enum UserID {
+    HOLY_GUACAMOLE = "205731886184660992",
+    WONDERWALL = "525229138110578709",
+    LEVIDE = "302915882261151747",
+    PLYTI = "237832481389150208",
+    KILLERWITHASPOON = "266214524225323008",
+    AQUAMARI_BOT = "1088130726597234791"
+}
+
 export interface GuildEvent {
     text: string,
     day: number,
@@ -35,7 +49,7 @@ export const guild_events : GuildEvent[] = [
         text: "Не забудьте напомнить Плути про повозку! А еще там Снежный Пик через 5 минут.",
         day: 4,
         time: "19:55:00",
-        highlight_id: "<@&678545537317732373>"
+        highlight_id: GroupID.AQUAMARI
     },
     {
         text: "Через пять минут появятся Големы! (Межсерверное событие)",
@@ -46,7 +60,7 @@ export const guild_events : GuildEvent[] = [
         text: "Собираемся на турнир! Первый бой начнётся через 10 минут.",
         day: 5,
         time: "19:50:00",
-        highlight_id: "<@&678545537317732373>"
+        highlight_id: GroupID.AQUAMARI
     },
     {
         text: "Через пять минут появится кекзекутор! (Сегодня не для слабонервных)",
@@ -57,13 +71,13 @@ export const guild_events : GuildEvent[] = [
         text: "Собираемся на осадные бои!",
         day: 6,
         time: "19:31:00",
-        highlight_id: "<@&678545537317732373>"
+        highlight_id: GroupID.AQUAMARI
     },
     {
         text: "Осада началась!",
         day: 6,
-        time: "20:31:00",
-        highlight_id: "<@&678545537317732373>"
+        time: "20:32:00",
+        highlight_id: GroupID.AQUAMARI
     },
     {
         text: "В это время обычно собирается на межсерверные фановые бои.",
@@ -77,7 +91,7 @@ export const guild_events_mobile : GuildEvent[] = [
         text: "Пять минут до события 'Isle of Greed' ака избиение деда.",
         day: 1,
         time: "15:25:00",
-        highlight_id: "<@&1088445869021478992>"
+        highlight_id: GroupID.REVELATION_MOBILE
     },
     {
         text: "Pool Party! Заходим! ┌[☉‿☉]┘",
@@ -88,7 +102,7 @@ export const guild_events_mobile : GuildEvent[] = [
         text: "Через 5 минут начнётся регистрация на 'Sky Battle'. Три боя 5х5. Лутаем монетки за победы.",
         day: 1,
         time: "15:55:00",
-        highlight_id: "<@&1088445869021478992>"
+        highlight_id: GroupID.REVELATION_MOBILE
     },
     {
         text: "Через 5 минут начнётся регистрация на 'Top Protege'. Стань самым лучшим представителем своего класса!",
@@ -99,7 +113,7 @@ export const guild_events_mobile : GuildEvent[] = [
         text: "Пять минут до события 'Isle of Greed' ака избиение деда.",
         day: 2,
         time: "15:25:00",
-        highlight_id: "<@&1088445869021478992>"
+        highlight_id: GroupID.REVELATION_MOBILE
     },
     {
         text: "Pool Party! Заходим! ┌[☉‿☉]┘",
@@ -110,7 +124,7 @@ export const guild_events_mobile : GuildEvent[] = [
         text: "Через 5 минут начнётся Soul Abyss. Слушаем РЛа и лутаем гильдийный аукцион.",
         day: 2,
         time: "15:55:00",
-        highlight_id: "<@&1088445869021478992>"
+        highlight_id: GroupID.REVELATION_MOBILE
     },
     {
         text: "Через 5 минут начнётся Sulan Mist. Лутаем сундуки в ночном сулане, побеждаем игроков с эмблемой над головой.",
@@ -121,7 +135,7 @@ export const guild_events_mobile : GuildEvent[] = [
         text: "Пять минут до события 'Isle of Greed' ака избиение деда.",
         day: 3,
         time: "15:25:00",
-        highlight_id: "<@&1088445869021478992>"
+        highlight_id: GroupID.REVELATION_MOBILE
     },
     {
         text: "Pool Party! Заходим! ┌[☉‿☉]┘",
@@ -132,13 +146,13 @@ export const guild_events_mobile : GuildEvent[] = [
         text: "Через 5 минут начнётся регистрация на 'Sky Battle'. Три боя 5х5. Лутаем монетки за победы.",
         day: 3,
         time: "15:55:00",
-        highlight_id: "<@&1088445869021478992>"
+        highlight_id: GroupID.REVELATION_MOBILE
     },
     {
         text: "Пять минут до события 'Isle of Greed' ака избиение деда.",
         day: 4,
         time: "15:25:00",
-        highlight_id: "<@&1088445869021478992>"
+        highlight_id: GroupID.REVELATION_MOBILE
     },
     {
         text: "Pool Party! Заходим! ┌[☉‿☉]┘",
@@ -149,13 +163,13 @@ export const guild_events_mobile : GuildEvent[] = [
         text: "Через 5 минут будет мобильный турнир!",
         day: 4,
         time: "16:25:00",
-        highlight_id: "<@&1088445869021478992>"
+        highlight_id: GroupID.REVELATION_MOBILE
     },
     {
         text: "Пять минут до события 'Isle of Greed' ака избиение деда.",
         day: 5,
         time: "15:25:00",
-        highlight_id: "<@&1088445869021478992>"
+        highlight_id: GroupID.REVELATION_MOBILE
     },
     {
         text: "Pool Party! Заходим! ┌[☉‿☉]┘",
@@ -166,19 +180,19 @@ export const guild_events_mobile : GuildEvent[] = [
         text: "Через 5 минут начнётся регистрация на 'Выживалки'. ",
         day: 5,
         time: "16:55:00",
-        highlight_id: "<@&1088445869021478992>"
+        highlight_id: GroupID.REVELATION_MOBILE
     },
     {
         text: "Через 5 минут будем выбирать лучшую девочку Аквамари!",
         day: 5,
         time: "18:55:00",
-        highlight_id: "<@&1088445869021478992>"
+        highlight_id: GroupID.REVELATION_MOBILE
     },
     {
         text: "Пять минут до события 'Isle of Greed' ака избиение деда.",
         day: 6,
         time: "15:25:00",
-        highlight_id: "<@&1088445869021478992>"
+        highlight_id: GroupID.REVELATION_MOBILE
     },
     {
         text: "Pool Party! Заходим! ┌[☉‿☉]┘",
@@ -194,7 +208,7 @@ export const guild_events_mobile : GuildEvent[] = [
         text: "Пять минут до события 'Isle of Greed' ака избиение деда.",
         day: 0,
         time: "15:25:00",
-        highlight_id: "<@&1088445869021478992>"
+        highlight_id: GroupID.REVELATION_MOBILE
     },
     {
         text: "Pool Party! Заходим! ┌[☉‿☉]┘",

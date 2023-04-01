@@ -1,5 +1,6 @@
 import { selfEvent } from './strings/jokes';
 import {SpellCheckService} from "./SpellCheckService";
+import {UserID} from "./strings/schedule";
 
 export class MessageService {
     private static instance: MessageService;
@@ -102,21 +103,21 @@ export class MessageService {
 
     public aggressiveReplies(message) {
         let finalString = "";
-        if (message.content.includes("<@1088130726597234791>")) {//Bot highlighted
+        if (message.content.includes(UserID.AQUAMARI_BOT)) {//Bot highlighted
             let firstMessage = "";
-            if(message.author.id === "266214524225323008") { //Killer
+            if(message.author.id === UserID.KILLERWITHASPOON) { //Killer
                 firstMessage = "Держи морковку.\n\n";
             }
-            else if(message.author.id === "237832481389150208") { //Killer
+            else if(message.author.id === UserID.PLYTI) { //Plyti
                 firstMessage = "Плути хъеп!\n\n";
             }
-            else if(message.author.id === "302915882261151747") { //Левайд
+            else if(message.author.id === UserID.LEVIDE) { //Левайд
                 firstMessage = "Ле Душнайд?\n\n";
             }
-            else if(message.author.id === "525229138110578709") { //Жаба
+            else if(message.author.id === UserID.WONDERWALL) { //Жаба
                 firstMessage = "АААААААааааааааааааАААААААААаааААА!\n\n";
             }
-            else if(message.author.id === "205731886184660992") {//Owner
+            else if(message.author.id === UserID.HOLY_GUACAMOLE) {//Owner
                 firstMessage = 'Я устал, босс.\n';
             }
             message.reply(finalString + firstMessage + selfEvent[Math.floor(Math.random() * selfEvent.length)])
