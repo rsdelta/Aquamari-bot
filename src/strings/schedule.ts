@@ -68,7 +68,7 @@ export const guild_events : GuildEvent[] = [
     {
         text: "Это среда, мои чуваки.",
         day: 3,
-        time: "24:00:30",
+        time: "09:30:00",
         embed: fixed_embed_messages.wednesday
     },
     {
