@@ -1,6 +1,7 @@
 import { selfEvent } from './strings/jokes';
 import {SpellCheckService} from "./SpellCheckService";
-import {UserID} from "./strings/schedule";
+import {EmbedField, EmbedObject, fixed_embed_messages, GuildEvent, UserID} from "./strings/schedule";
+import { EmbedBuilder } from 'discord.js';
 
 export class MessageService {
     private static instance: MessageService;
@@ -13,8 +14,13 @@ export class MessageService {
         return MessageService.instance;
     }
 
-    public sendMessage(channel, message) {
-        channel.send({ content: message})
+    public sendMessage(channel, message, event ?: GuildEvent) {
+        if (event.embed) {
+            channel.send({ embeds: [this.createEmbed(event.embed)], content: message || "\u200b"})
+        }
+        else {
+            channel.send({ content: message})
+        }
     }
 
     public sendGrammarMessage(message) {
@@ -24,24 +30,39 @@ export class MessageService {
             });
     }
 
-    public sendEmbeddedMessage(channel, message) {
-        //TODO:
-        const embedMessage = {
-            title: "",
-            author: {
-                name: ""
-            },
-            description: "",
-            fields: [
-                {
-                    name: "",
-                    value: ''
-                },
-                {
-                    name: "",
-                    value: ''
-                }]
-        };
+    public createEmbed(obj: EmbedObject) {
+        const embed = new EmbedBuilder();
+        embed.setTitle(obj.title);
+        embed.setDescription(obj.description);
+        obj.fields.forEach((field: EmbedField) => {
+            console.log(field);
+            embed.addFields(field)
+        });
+
+        if (obj.timestamp) {
+            embed.setTimestamp();
+        }
+        if (obj.color) {
+            embed.setColor(obj.color);
+        }
+        if (obj.url) {
+            embed.setURL(obj.url);
+        }
+        if (obj.image) {
+            embed.setImage(obj.image);
+        }
+        if (obj.author) {
+            embed.setAuthor(obj.author)
+        }
+        if (obj.footer) {
+            embed.setFooter(obj.footer);
+        }
+
+        return embed;
+
+    }
+
+    public sendEmbeddedMessage(channel, embedMessage) {
         channel.send({ embeds: [embedMessage]})
     }
 

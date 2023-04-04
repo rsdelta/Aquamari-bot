@@ -1,3 +1,32 @@
+export interface EmbedObject {
+    title: string,
+    description: string,
+    fields: any,
+    timestamp?: boolean,
+    color?: number,
+    url?: string,
+    author?: any,
+    image?: string,
+    footer?: any;
+}
+
+export interface EmbedField {
+    name: string,
+    value: string,
+    inline?: boolean
+}
+
+export const fixed_embed_messages = {
+    wednesday: {
+        title: "Среда",
+        description: "Это среда, мои чуваки",
+        fields: [{name: "\u200b", value: "\u200b"},{name: "АаааАаааААААааАААааАА!", value: "\u200b"}],
+        timestamp: true,
+        image: "https://cdn.discordapp.com/attachments/1088211033010753576/1092843632232509582/cover1.png"
+    }
+};
+
+
 export enum GroupID {
     AQUAMARI = "678545537317732373",
     REVELATION_MOBILE = "1088445869021478992"
@@ -17,6 +46,7 @@ export interface GuildEvent {
     day: number,
     time: string,
     highlight_id?: string
+    embed?: EmbedObject
 }
 
 export const guild_events : GuildEvent[] = [
@@ -39,6 +69,7 @@ export const guild_events : GuildEvent[] = [
         text: "Это среда, мои чуваки.",
         day: 3,
         time: "00:00:01",
+        embed: fixed_embed_messages.wednesday
     },
     {
         text: "Через пять минут начнется событие 'Темный афкающий легион'!",

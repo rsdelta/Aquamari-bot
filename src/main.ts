@@ -92,7 +92,7 @@ function sendTimedAnnouncement(channel: any, list: GuildEvent[]) {
 	const day = date.getDay();
 	list.forEach((event) => {
 		if (event.day === day && event.time === time) {
-			MessageService.getInstance().sendMessage(channel, (event.highlight_id? ("<@&"+event.highlight_id+">") : "") + " " + event.text)
+			MessageService.getInstance().sendMessage(channel, (event.highlight_id? ("<@&"+event.highlight_id+">") : "") + " " + event.text, event)
 		}
 	});
 }
