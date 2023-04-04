@@ -15,7 +15,7 @@ export class MessageService {
     }
 
     public sendMessage(channel, message, event ?: GuildEvent) {
-        if (event.embed) {
+        if (event?.embed) {
             channel.send({ embeds: [this.createEmbed(event.embed)], content: message || "\u200b"})
         }
         else {
