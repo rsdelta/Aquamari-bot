@@ -46,7 +46,8 @@ export interface GuildEvent {
     day: number,
     time: string,
     highlight_id?: string
-    embed?: EmbedObject
+    embed?: EmbedObject,
+    isUser?: boolean
 }
 
 export const guild_events : GuildEvent[] = [
@@ -82,10 +83,11 @@ export const guild_events : GuildEvent[] = [
         time: "21:55:00",
     },
     {
-        text: "Не забудьте напомнить Плути про повозку! А еще там Снежный Пик через 5 минут.",
+        text: "А у нас сегодня будет повозка? Ах да. Снежный Пик через 5 минут.",
         day: 4,
         time: "19:55:00",
-        highlight_id: GroupID.AQUAMARI
+        highlight_id: UserID.PLYTI,
+        isUser: true
     },
     {
         text: "Через пять минут появятся Големы! (Межсерверное событие)",
@@ -137,8 +139,7 @@ export const guild_events_mobile : GuildEvent[] = [
     {
         text: "Через 5 минут начнётся регистрация на 'Sky Battle'. Три боя 5х5. Лутаем монетки за победы.",
         day: 1,
-        time: "15:55:00",
-        highlight_id: GroupID.REVELATION_MOBILE
+        time: "15:55:00"
     },
     {
         text: "Через 5 минут начнётся регистрация на 'Top Protege'. Стань самым лучшим представителем своего класса!",
@@ -181,8 +182,7 @@ export const guild_events_mobile : GuildEvent[] = [
     {
         text: "Через 5 минут начнётся регистрация на 'Sky Battle'. Три боя 5х5. Лутаем монетки за победы.",
         day: 3,
-        time: "15:55:00",
-        highlight_id: GroupID.REVELATION_MOBILE
+        time: "15:55:00"
     },
     {
         text: "Пять минут до события 'Isle of Greed' ака избиение деда.",
@@ -215,8 +215,7 @@ export const guild_events_mobile : GuildEvent[] = [
     {
         text: "Через 5 минут начнётся регистрация на 'Выживалки'. ",
         day: 5,
-        time: "16:55:00",
-        highlight_id: GroupID.REVELATION_MOBILE
+        time: "16:55:00"
     },
     {
         text: "Через 5 минут будем выбирать лучшую девочку Аквамари!",
