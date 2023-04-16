@@ -1,7 +1,7 @@
 import { selfEvent } from './strings/jokes';
 import {SpellCheckService} from "./SpellCheckService";
-import {EmbedField, EmbedObject, fixed_embed_messages, GuildEvent, UserID} from "./strings/schedule";
-import { EmbedBuilder } from 'discord.js';
+import {EmbedField, EmbedObject, GuildEvent, UserID} from "./strings/schedule";
+import { EmbedBuilder, AttachmentBuilder } from 'discord.js';
 
 export class MessageService {
     private static instance: MessageService;
@@ -150,6 +150,14 @@ export class MessageService {
         let utc = d.getTime() + (d.getTimezoneOffset() * 60000);
         let nd = new Date(utc + (3600000*offset));
         return nd.toLocaleTimeString([], {hour12: false});
+    }
+
+    public sendDiceMessage(channel, message, number) {
+        channel.send({ files: [this.attachImage("./src/dice/" + number + ".png")], content: message || "\u200b"})
+    }
+
+    public attachImage(url) {
+        return new AttachmentBuilder(url)
     }
 }
 

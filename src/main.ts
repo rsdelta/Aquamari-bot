@@ -59,7 +59,18 @@ function initClientEvents() {
 
 	client.on('interactionCreate', (interaction) => {
 		if (interaction.isChatInputCommand()) {
+			let userString = null;
+			let randomNumber = null;
 			switch (interaction.commandName) {
+				case 'd20':
+					if (!interaction?.user?.id) {
+						console.log("User not found: " + interaction?.user?.id);
+						return;
+					}
+					userString = "<@" + interaction?.user?.id + ">";
+					randomNumber = Math.floor(Math.random() * 20) + 1;
+					interaction.reply({files: [MessageService.getInstance().attachImage("./src/dice/" + randomNumber + ".png")], content: `${userString} бросает кубик: [${randomNumber}] оч.`});
+					break;
 				case 'schedule':
 					const message = interaction.options.getString('message');
 					const time = interaction.options.getInteger('time');
@@ -71,13 +82,12 @@ function initClientEvents() {
 					});
 					break;
 				case 'roll':
-					const user = interaction?.user?.id;
-					if (!user) {
-						console.log("User not found: " + user);
+					if (!interaction?.user?.id) {
+						console.log("User not found: " + interaction?.user?.id);
 						return;
 					}
-					const userString = "<@" + user + ">";
-					const randomNumber = Math.floor(Math.random() * 100) + 1;
+					userString = "<@" + interaction?.user?.id + ">";
+					randomNumber = Math.floor(Math.random() * 100) + 1;
 					interaction.reply({ content: `${userString} бросает кубик: [${randomNumber}] оч.`});
 					break;
 			}
@@ -122,10 +132,15 @@ function rollCommand() {
 	return new SlashCommandBuilder().setName('roll').setDescription('Roll dice').toJSON();
 }
 
+function drollCommand() {
+	return new SlashCommandBuilder().setName('d20').setDescription('Roll d20 dice').toJSON();
+}
+
 function initCommands() {
 	commands = [
 		scheduleMessageCommand(),
-		rollCommand()
+		rollCommand(),
+		drollCommand()
 	];
 }
 
