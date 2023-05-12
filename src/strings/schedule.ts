@@ -208,7 +208,7 @@ export const guild_events_mobile : GuildEvent[] = [
         highlight_id: GroupID.REVELATION_MOBILE
     },
     {
-        text: "Pool Party! Заходим! ┌[☉‿☉]┘",
+        text: "Pool Party! Заходим! ┌[☉‿☉]┘. Сразу после него начнётся событие Lady Stars!",
         day: 5,
         time: "15:45:00",
     },
@@ -216,12 +216,6 @@ export const guild_events_mobile : GuildEvent[] = [
         text: "Через 5 минут начнётся регистрация на 'Выживалки'. ",
         day: 5,
         time: "16:55:00"
-    },
-    {
-        text: "Через 5 минут будем выбирать лучшую девочку Аквамари!",
-        day: 5,
-        time: "18:55:00",
-        highlight_id: GroupID.REVELATION_MOBILE
     },
     {
         text: "Пять минут до события 'Isle of Greed' ака избиение деда.",
