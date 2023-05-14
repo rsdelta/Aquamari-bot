@@ -240,7 +240,7 @@ export const guild_events_mobile : GuildEvent[] = [
         highlight_id: GroupID.REVELATION_MOBILE
     },
     {
-        text: "Pool Party! Заходим! ┌[☉‿☉]┘",
+        text: "Pool Party! Заходим! ┌[☉‿☉]┘. После будет Ember Cruiser.",
         day: 0,
         time: "15:45:00",
     },
