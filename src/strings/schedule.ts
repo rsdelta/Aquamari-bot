@@ -74,7 +74,7 @@ export const guild_events : GuildEvent[] = [
     },
     {
         text: "Собираемся в гиданж!",
-        day: 5,
+        day: 3,
         time: "20:30:00",
         highlight_id: GroupID.AQUAMARI
     },
