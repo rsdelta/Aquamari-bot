@@ -73,9 +73,10 @@ export const guild_events : GuildEvent[] = [
         embed: fixed_embed_messages.wednesday
     },
     {
-        text: "Через пять минут начнется событие 'Темный афкающий легион'!",
-        day: 3,
-        time: "19:55:00",
+        text: "Собираемся в гиданж!",
+        day: 5,
+        time: "20:30:00",
+        highlight_id: GroupID.AQUAMARI
     },
     {
         text: "Через пять минут появится кекзекутор!",
@@ -83,16 +84,14 @@ export const guild_events : GuildEvent[] = [
         time: "21:55:00",
     },
     {
-        text: "А у нас сегодня будет повозка? Ах да. Снежный Пик через 5 минут.",
-        day: 4,
-        time: "19:55:00",
-        highlight_id: UserID.PLYTI,
-        isUser: true
-    },
-    {
         text: "Через пять минут появятся Големы! (Межсерверное событие)",
         day: 4,
         time: "21:55:00",
+    },
+    {
+        text: "Через 10 минут начнется событие 'Волшебный цветочек'.",
+        day: 5,
+        time: "18:50:00"
     },
     {
         text: "Собираемся на турнир! Первый бой начнётся через 10 минут.",
@@ -117,131 +116,6 @@ export const guild_events : GuildEvent[] = [
         time: "20:32:00",
         highlight_id: GroupID.AQUAMARI
     },
-    {
-        text: "В это время обычно начинают собираться на межсерверные фановые бои в Дорвике.",
-        day: 0,
-        time: "19:50:00",
-    }
 ];
 
-export const guild_events_mobile : GuildEvent[] = [
-    {
-        text: "Пять минут до события 'Isle of Greed' ака избиение деда.",
-        day: 1,
-        time: "15:25:00",
-        highlight_id: GroupID.REVELATION_MOBILE
-    },
-    {
-        text: "Pool Party! Заходим! ┌[☉‿☉]┘",
-        day: 1,
-        time: "15:45:00",
-    },
-    {
-        text: "Через 5 минут начнётся регистрация на 'Sky Battle'. Три боя 5х5. Лутаем монетки за победы.",
-        day: 1,
-        time: "15:55:00"
-    },
-    {
-        text: "Через 5 минут начнётся регистрация на 'Top Protege'. Стань самым лучшим представителем своего класса!",
-        day: 1,
-        time: "16:55:00",
-    },
-    {
-        text: "Пять минут до события 'Isle of Greed' ака избиение деда.",
-        day: 2,
-        time: "15:25:00",
-        highlight_id: GroupID.REVELATION_MOBILE
-    },
-    {
-        text: "Pool Party! Заходим! ┌[☉‿☉]┘",
-        day: 2,
-        time: "15:45:00",
-    },
-    {
-        text: "Через 5 минут начнётся Soul Abyss. Слушаем РЛа и лутаем гильдийный аукцион.",
-        day: 2,
-        time: "15:55:00",
-        highlight_id: GroupID.REVELATION_MOBILE
-    },
-    {
-        text: "Через 5 минут начнётся Sulan Mist. Лутаем сундуки в ночном сулане, побеждаем игроков с эмблемой над головой.",
-        day: 2,
-        time: "16:55:00",
-    },
-    {
-        text: "Пять минут до события 'Isle of Greed' ака избиение деда.",
-        day: 3,
-        time: "15:25:00",
-        highlight_id: GroupID.REVELATION_MOBILE
-    },
-    {
-        text: "Pool Party! Заходим! ┌[☉‿☉]┘",
-        day: 3,
-        time: "15:45:00",
-    },
-    {
-        text: "Через 5 минут начнётся регистрация на 'Sky Battle'. Три боя 5х5. Лутаем монетки за победы.",
-        day: 3,
-        time: "15:55:00"
-    },
-    {
-        text: "Пять минут до события 'Isle of Greed' ака избиение деда.",
-        day: 4,
-        time: "15:25:00",
-        highlight_id: GroupID.REVELATION_MOBILE
-    },
-    {
-        text: "Pool Party! Заходим! ┌[☉‿☉]┘",
-        day: 4,
-        time: "15:45:00",
-    },
-    {
-        text: "Через 5 минут будет мобильный турнир!",
-        day: 4,
-        time: "16:25:00",
-        highlight_id: GroupID.REVELATION_MOBILE
-    },
-    {
-        text: "Пять минут до события 'Isle of Greed' ака избиение деда.",
-        day: 5,
-        time: "15:25:00",
-        highlight_id: GroupID.REVELATION_MOBILE
-    },
-    {
-        text: "Pool Party! Заходим! ┌[☉‿☉]┘. Сразу после него начнётся событие Lady Stars!",
-        day: 5,
-        time: "15:45:00",
-    },
-    {
-        text: "Через 5 минут начнётся регистрация на 'Выживалки'. ",
-        day: 5,
-        time: "16:55:00"
-    },
-    {
-        text: "Пять минут до события 'Isle of Greed' ака избиение деда.",
-        day: 6,
-        time: "15:25:00",
-        highlight_id: GroupID.REVELATION_MOBILE
-    },
-    {
-        text: "Pool Party! Заходим! ┌[☉‿☉]┘",
-        day: 6,
-        time: "15:45:00",
-    },
-    {
-        text: "Через 5 минут начнётся мобильная осада!",
-        day: 6,
-        time: "15:55:00",
-    },
-    {
-        text: "Пять минут до события 'Isle of Greed' ака избиение деда.",
-        day: 0,
-        time: "15:25:00",
-        highlight_id: GroupID.REVELATION_MOBILE
-    },
-    {
-        text: "Pool Party! Заходим! ┌[☉‿☉]┘. После будет Ember Cruiser.",
-        day: 0,
-        time: "15:45:00",
-    },
-];
+export const guild_events_mobile : GuildEvent[] = [];
